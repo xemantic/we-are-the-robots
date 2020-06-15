@@ -20,9 +20,13 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "we-are-the-robots"
-include(
-    "robots-api",
-    "robots-roomba-api",
-    "robots-roomba-core"
-)
+dependencies {
+  implementation(kotlin("stdlib-jdk8"))
+  implementation(project(":robots-api"))
+  implementation(project(":robots-roomba-api"))
+  implementation("com.xemantic.state:xemantic-state-core")
+  implementation("io.github.microutils:kotlin-logging")
+  implementation("org.scream3r:jssc")
+  implementation("io.reactivex.rxjava3:rxjava")
+  implementation("io.reactivex.rxjava3:rxkotlin")
+}

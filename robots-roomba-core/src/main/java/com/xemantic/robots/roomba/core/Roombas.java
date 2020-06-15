@@ -20,9 +20,22 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "we-are-the-robots"
-include(
-    "robots-api",
-    "robots-roomba-api",
-    "robots-roomba-core"
-)
+package com.xemantic.robots.roomba.core;
+
+public final class Roombas {
+
+  private Roombas() { /* util class, non-instantiable */ }
+
+  public static int signed16BitToInt(byte highByte, byte lowByte) {
+    return lowByte & 0xff | (short) (highByte << 8);
+  }
+
+  public static int unsigned16BitToInt(byte highByte, byte lowByte) {
+    return ((highByte & 0xff) << 8) | (lowByte & 0xff);
+  }
+
+  public static boolean bitOnPosition(byte data, byte position) {
+    return data << ~position < 0;
+  }
+
+}
