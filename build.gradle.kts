@@ -22,6 +22,7 @@
 
 @Suppress("MayBeConstant")
 object V {
+  val java = JavaVersion.VERSION_1_8
   val kotlin = "1.3.72"
   val kotlinLogging = "1.7.9"
   val rxJava = "3.0.4"
@@ -30,6 +31,7 @@ object V {
   val atrium = "0.12.0"
   val log4j = "2.13.3"
   val jackson = "2.11.0"
+  val jssc = "2.8.0"
   val xemanticState = "1.0-SNAPSHOT"
 }
 
@@ -54,15 +56,19 @@ subprojects {
 
   apply {
     plugin("io.spring.dependency-management")
-    plugin("kotlin")
+    plugin("org.jetbrains.kotlin.jvm")
     plugin("maven-publish")
     plugin("org.jetbrains.dokka")
   }
 
   configure<JavaPluginExtension> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = V.java
+    targetCompatibility = V.java
     withSourcesJar()
+  }
+
+  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = V.java.toString()
   }
 
   dependencyManagement {
@@ -75,6 +81,8 @@ subprojects {
 
       dependency("io.reactivex.rxjava3:rxjava:${V.rxJava}")
       dependency("io.reactivex.rxjava3:rxkotlin:${V.rxKotlin}")
+
+      dependency("org.scream3r:jssc:${V.jssc}")
 
       // test dependencies
       dependency("org.jetbrains.kotlin:kotlin-test-junit5:${V.kotlin}")
