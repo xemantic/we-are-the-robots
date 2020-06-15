@@ -38,9 +38,8 @@ enum class RobotMode {
 }
 
 open class RobotState(s: State<RobotState>) {
-  // TODO this one should come from preserved state
-  var robotAgency by s.property(RobotAgency.AUTONOMOUS_AGENT)
-  var robotMode by s.property(RobotMode.FREE)
+  var agency by s.property(RobotAgency.AUTONOMOUS_AGENT)
+  var mode by s.property(RobotMode.FREE)
   open val autonomousMovement by s.property(false)
 }
 
@@ -49,7 +48,7 @@ class MutableRobotState(s: State<RobotState>): RobotState(s) {
 }
 
 class RobotStateEvents(e: Events<RobotStateEvents>) {
-  val robotAgency by e.events<RobotAgency>()
-  val robotMode by e.events<RobotMode>()
+  val agency by e.events<RobotAgency>()
+  val mode by e.events<RobotMode>()
   val autonomousMovement by e.events<Boolean>()
 }
